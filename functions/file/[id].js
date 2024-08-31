@@ -46,7 +46,7 @@ export async function onRequest(context) {  // Contents of context object
                             return Response.redirect("https://static-res.pages.dev/teleimage/img-block-compressed.png", 302)
                         }
 
-                    } else if (record.metadata.Label == "adult") {
+                    } else if (record.metadata.Label !== "everyone") {
                         if (typeof request.headers.get('Referer') == "undefined" || request.headers.get('Referer') == null || request.headers.get('Referer') == "") {
                             return Response.redirect(url.origin + "/block-img.html", 302)
                         } else {
@@ -96,7 +96,7 @@ export async function onRequest(context) {  // Contents of context object
                                 metadata: { ListType: "None", Label: moderate_data.rating_label, TimeStamp: time },
                             });
                         }
-                        if (moderate_data.rating_label == "adult") {
+                        if (moderate_data.rating_label !== "everyone") {
                             return Response.redirect(url.origin + "/block-img.html", 302)
                         }
                     });
